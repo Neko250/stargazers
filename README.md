@@ -12,4 +12,6 @@ Black Moth Super Rainbow - Forever Heavy
 
 ## License
 
-Code under the [MIT License](http://opensource.org/licenses/MIT).
+Code licensed under [MIT License](http://opensource.org/licenses/MIT).
+
+Graphics licensed under [CC Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/)
