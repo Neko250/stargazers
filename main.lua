@@ -6,7 +6,8 @@ function love.load()
 
 	music = love.audio.newSource("audio/bgm/bmsr.wav", "stream")
 	music:setLooping(true)
-	music:setVolume(0.25)
+	-- music:setVolume(0.25)
+	music:setVolume(0)
 	sfxBtn = love.audio.newSource("audio/sfx/btnp.wav", "static")
 	sfxError = love.audio.newSource("audio/sfx/error.wav", "static")
 	sfxStar = love.audio.newSource("audio/sfx/star.wav", "static")
@@ -122,8 +123,17 @@ function drawGame()
 	love.graphics.draw(podium, 4, 416, 0, 2)
 	love.graphics.draw(podium, 508, 416, 0, 2)
 
-	love.graphics.draw(playerSprite[math.floor(player1.t / 25) + 1], 32, 369, 0, 2)
-	love.graphics.draw(playerSprite[math.floor(player2.t / 25) + 1], 608, 369, 0, -2, 2)
+	if player1.t < 0 then
+		love.graphics.draw(playerSprite[3], 32, 369, 0, 2)
+	else
+		love.graphics.draw(playerSprite[math.floor(player1.t / 25) + 1], 32, 369, 0, 2)
+	end
+
+	if player2.t < 0 then
+		love.graphics.draw(playerSprite[3], 608, 369, 0, -2, 2)
+	else
+		love.graphics.draw(playerSprite[math.floor(player2.t / 25) + 1], 608, 369, 0, -2, 2)
+	end
 
 	love.graphics.setColor(255, 255, 255, 255)
 	love.graphics.print(globalCounter, 302, 34)
@@ -164,12 +174,12 @@ function updateGame()
 	end
 
 	player1.t = player1.t + 1
-	if player1.t > 50 then
+	if player1.t >= 50 then
 		player1.t = 0
 	end
 
 	player2.t = player2.t + 1
-	if player2.t > 50 then
+	if player2.t >= 50 then
 		player2.t = 0
 	end
 
@@ -182,6 +192,7 @@ function updateGame()
 
 	if player1.justPressed then
 		playSound()
+		player1.t = -25
 		player1.counter = player1.counter + globalCounter
 		globalCounter = 0
 		resetStars()
@@ -189,6 +200,7 @@ function updateGame()
 
 	if player2.justPressed then
 		playSound()
+		player2.t = -25
 		player2.counter = player2.counter + globalCounter
 		globalCounter = 0
 		resetStars()
